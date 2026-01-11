@@ -1,0 +1,46 @@
+# Compiled intermediates
+*.bin
+*.o
+*.elf
+
+# Simulation files
+*.vvp
+*.vcd
+*.lxt
+*.vpd
+*.shm
+
+# Log files
+*.log
+
+# Waveform database
+*.wdb
+
+# Backup files
+*~
+*.bak
+*.swp
+*.swo
+*#
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# Cleanup scripts (temporary)
+CLEANUP.sh
+FINAL_CLEANUP.sh
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Generated documentation
+html/
+latex/
+
+# IDE files
+.vscode/
+.idea/
+*.code-workspace

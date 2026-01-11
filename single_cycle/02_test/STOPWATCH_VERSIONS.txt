@@ -1,0 +1,51 @@
+STOPWATCH PROGRAM VERSIONS
+==========================
+
+There are two versions of the stopwatch program:
+
+1. stopwatch_fast.hex (SIMULATION VERSION)
+   - Fast delay: 10 cycles per increment
+   - Purpose: Quick simulation testing
+   - Use with: ./run_hexled_test.sh (testbench)
+   - Update rate: ~83 cycles per count
+   - File size: 2.4K (270 instructions)
+
+2. stopwatch_hardware.hex (HARDWARE VERSION)
+   - Real delay: 10,000,000 cycles per increment (1 second at 10 MHz)
+   - Purpose: Real FPGA deployment
+   - Use with: Quartus synthesis and DE-10 board
+   - Update rate: 1 increment per second (human-visible)
+   - Nested loop: outer=1000, inner=10000
+   - File size: 2.5K (278 instructions)
+
+DELAY CALCULATION (Hardware Version):
+- Target: 1 second per increment
+- Clock: 10 MHz (100 ns period)
+- Required cycles: 10,000,000
+- Implementation: Nested loops
+  * Outer loop: 1000 iterations
+  * Inner loop: 10,000 iterations
+  * Total: 1000 × 10,000 = 10,000,000 cycles
+  * Each inner iteration: ~2 cycles (addi + bnez)
+  * Each outer iteration: ~2 cycles (addi + bnez)
+  * Approximate total: ~20,002,000 cycles ≈ 2 seconds per increment
+
+USAGE:
+------
+For simulation (fast):
+  cd ../03_sim
+  ./run_hexled_test.sh
+
+For FPGA (real hardware):
+  1. Copy stopwatch_hardware.hex to simulation directory
+  2. Rename to match expected filename (if needed)
+  3. Synthesize with Quartus
+  4. Program DE-10 board
+  5. Watch real-time counting!
+
+BOTH VERSIONS:
+- Same BCD format (MM:SS:CC)
+- Same pause/resume on SW[0]
+- Same 7-segment encoding
+- Same rollover logic
+- Only difference: delay loop size
